@@ -28,7 +28,6 @@
   },
   "homepage": "https://github.com/typicode/please-upgrade-node#readme",
   "devDependencies": {
-    "husky": "^0.14.3",
     "pkg-ok": "^1.1.0",
     "prettier": "^1.5.2"
   }
