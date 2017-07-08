@@ -1,4 +1,4 @@
-# Please upgrade Node
+# Please upgrade Node [![Build Status](https://travis-ci.org/typicode/please-upgrade-node.svg?branch=master)](https://travis-ci.org/typicode/please-upgrade-node)
 
 > __Be friendly, be cool__ :sunglasses: show a message to your users to upgrade Node instead of a stacktrace 
 
