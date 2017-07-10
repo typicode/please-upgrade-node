@@ -3,7 +3,7 @@ module.exports = function(pkg) {
   var currentVersion = process.version.replace("v", "");
   if (currentVersion < requiredVersion) {
     console.error(
-      "%s requires at least version %s of Node. Please upgrade.",
+      "%s requires at least version %s of Node, please upgrade",
       pkg.name,
       requiredVersion
     );
