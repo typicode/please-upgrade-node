@@ -1,11 +1,11 @@
+var semver = require("semver");
+
 module.exports = function(pkg) {
-  var requiredVersion = pkg.engines.node.replace(">=", "");
-  var currentVersion = process.version.replace("v", "");
-  if (currentVersion < requiredVersion) {
+  if (!semver.satisfies(process.version, pkg.engines.node)) {
     console.error(
       "%s requires at least version %s of Node, please upgrade",
       pkg.name,
-      requiredVersion
+      pkg.engines.node
     );
     process.exit(1);
   }
