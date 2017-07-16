@@ -10,7 +10,7 @@ Example with [hotel](https://github.com/typicode/hotel) CLI:
 $ node -v
 0.12
 $ hotel
-hotel requires at least version 4 of Node, please upgrade
+hotel requires a Node version that satisfies >=4, please upgrade
 ```
 
 ## Usage
@@ -44,7 +44,7 @@ In your `package.json`, define the required Node version:
 }
 ```
 
-Please note that `>=` is the only operator supported by `please-upgrade-node` (e.g. `>=4`, `>=4.0`, `>=4.0.0`). Now if your users install your `super-cli` project with an older Node version, they'll see:
+Please note that any semantic version operators are supported by `please-upgrade-node` (e.g. `>=4`, `^4.1`, `~4.0.1`). Now if your users install your `super-cli` project with an older Node version, they'll see:
 
 ```sh
 $ npm install -g super-cli
@@ -55,7 +55,7 @@ npm WARN engine super-cli@1.0.0: : wanted: {"node":">=6"} (current: {"node":"4.8
 
 ```sh
 $ super-cli
-super-cli requires at least version 6 of Node, please upgrade
+super-cli requires a Node version that satisfies >=6, please upgrade
 ```
 
 ## Caveat
