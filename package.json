@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/typicode/please-upgrade-node#readme",
   "devDependencies": {
+    "mock-require": "^2.0.2",
     "pkg-ok": "^1.1.0",
     "prettier": "^1.5.2"
   }
