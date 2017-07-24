@@ -26,10 +26,9 @@ yarn add please-upgrade-node
 Require `please-upgrade-node` before anything else:
 
 ```js
-// bin.js
-require('please-upgrade-node')(
-  require('./package.json')
-)
+// ./bin.js
+// by default, will load ./package.json
+require('please-upgrade-node')()
 
 // The rest of your code...
 ```
@@ -58,17 +57,32 @@ $ super-cli
 super-cli requires at least version 6 of Node, please upgrade
 ```
 
+## API
+
+`pleaseUpgradeNode([pkgDir = '.'])`
+
+You can pass a `pkgDir` if your `package.json` is not at the same level:
+
+```js
+// ./package.json
+require('please-upgrade-node')()
+
+// ../../package.json
+require('please-upgrade-node')('../..')
+```
+
 ## Caveat
 
 Make sure when requiring `please-upgrade-node` to not use syntax that is only supported in recent versions of Node.
 
-For example, if you use `const` instead of `var` and don't transpile it, `please-upgrade-node` won't work with Node `0.12`:
+For example, if you use `const` instead of `var`, `please-upgrade-node` won't work with Node `0.12`:
 
 ```js
-const pkg = require('./package.json') // ← Will fail and exit here with Node 0.12,
-                                      // because const isn't supported.
-require('please-upgrade-node')(pkg)   // No upgrade message will be displayed :(
+const pleaseUpgradeNode = require('please-upgrade-node') // ← Will fail and exit here with Node 0.12,
+pleaseUpgradeNode() // Message won't be displayed
 ```
+
+To avoid any issues, the recommended syntax is `require('please-upgrade-node')()`.
 
 ## See also
 

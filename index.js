@@ -1,4 +1,6 @@
-module.exports = function(pkg) {
+module.exports = function (pkgDir) {
+  var dir = pkgDir || '.'
+  var pkg = require(dir + "/package.json");
   var requiredVersion = pkg.engines.node.replace(">=", "");
   var currentVersion = process.version.replace("v", "");
   if (currentVersion < requiredVersion) {
