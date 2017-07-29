@@ -22,6 +22,13 @@
     "upgrade"
   ],
   "author": "typicode",
+  "contributors": [
+    {
+      "name": "Suhas Karanth",
+      "email": "sudo.suhas@gmail.com",
+      "url": "github.com/sudo-suhas"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/typicode/please-upgrade-node/issues"
