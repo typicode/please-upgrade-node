@@ -1,41 +1,32 @@
 # Please upgrade Node [![Build Status](https://travis-ci.org/typicode/please-upgrade-node.svg?branch=master)](https://travis-ci.org/typicode/please-upgrade-node) [![npm](https://img.shields.io/npm/v/please-upgrade-node.svg)](https://www.npmjs.com/package/please-upgrade-node)
 
-> __Be friendly, be cool__ :sunglasses: show a message to your users to upgrade Node instead of a stacktrace 
+> :information_desk_person: show a message to your users to upgrade Node instead of a stacktrace 
 
-It's common for new Node users to miss the `npm` engines warning when installing a CLI. This package displays a beginner-friendly message if their Node version is below the one expected and it's just a [__few lines__](index.js) of JS code.
+It's common for new Node users to miss the `npm` engines warning when installing a CLI. This package displays a beginner-friendly message if their Node version is below the one expected.
 
 Example with [hotel](https://github.com/typicode/hotel) CLI:
 
-```
+```sh
 $ node -v
 0.12
+
 $ hotel
 hotel requires at least version 4 of Node, please upgrade
 ```
 
-## Usage
-
-Install:
+## Install
 
 ```sh
 npm install please-upgrade-node
-
-yarn add please-upgrade-node
 ```
-
-Require `please-upgrade-node` before anything else:
 
 ```js
 // ./bin.js
-// by default, will load ./package.json
 require('please-upgrade-node')()
-
-// The rest of your code...
 ```
 
-In your `package.json`, define the required Node version:
-
-```json
+```js
+// package.json
 { 
   "name": "super-cli",
   "bin": "./bin.js",
@@ -43,23 +34,24 @@ In your `package.json`, define the required Node version:
 }
 ```
 
-Please note that `>=` is the only operator supported by `please-upgrade-node` (e.g. `>=4`, `>=4.0`, `>=4.0.0`). Now if your users install your `super-cli` project with an older Node version, they'll see:
+## Caveats
 
-```sh
-$ npm install -g super-cli
-# [...]
-npm WARN engine super-cli@1.0.0: : wanted: {"node":">=6"} (current: {"node":"4.8.3","npm":"2.15.11"})
-# [...]
+`please-upgrade-node` must be run before any other code. It's highly recommended to require it this way:
+
+```js
+#!/usr/bin/env node
+require('please-upgrade-node')()
+const other = require('some-other-package')
+// ...
 ```
 
-```sh
-$ super-cli
-super-cli requires at least version 6 of Node, please upgrade
-```
+Also `>=` is the only operator supported by `please-upgrade-node` (e.g. `>=4`, `>=4.0`, `>=4.0.0`).
+
+
 
 ## API
 
-`pleaseUpgradeNode([pkgDir = '.'])`
+__`pleaseUpgradeNode([pkgDir = '.'])`__
 
 You can pass a `pkgDir` if your `package.json` is not at the same level:
 
@@ -89,7 +81,7 @@ To avoid any issues, the recommended syntax is `require('please-upgrade-node')()
 * [pkg-ok](https://github.com/typicode/pkg-ok) - :ok_hand: Prevents publishing a module with bad paths
 * [husky](https://github.com/typicode/husky) - :dog: Git hooks made easy
 
-Thanks to [zeit/serve](https://github.com/zeit/serve) for inspiring the error message.
+Thanks to [zeit/serve](https://github.com/zeit/serve) for the error message inspiration.
 
 ## License
 
