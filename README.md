@@ -36,7 +36,7 @@ require('please-upgrade-node')()
 
 ## Caveats
 
-`please-upgrade-node` must be run before any other code. It's __highly recommended__ to require it this way:
+`please-upgrade-node` must be run before any other code. It's __highly recommended__ to require it this way in your CLI:
 
 ```js
 #!/usr/bin/env node
