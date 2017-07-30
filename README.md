@@ -36,7 +36,7 @@ require('please-upgrade-node')()
 
 ## Caveats
 
-`please-upgrade-node` must be run before any other code. It's highly recommended to require it this way:
+`please-upgrade-node` must be run before any other code. It's __highly recommended__ to require it this way:
 
 ```js
 #!/usr/bin/env node
@@ -62,19 +62,6 @@ require('please-upgrade-node')()
 // ../../package.json
 require('please-upgrade-node')('../..')
 ```
-
-## Caveat
-
-Make sure when requiring `please-upgrade-node` to not use syntax that is only supported in recent versions of Node.
-
-For example, if you use `const` instead of `var`, `please-upgrade-node` won't work with Node `0.12`:
-
-```js
-const pleaseUpgradeNode = require('please-upgrade-node') // ← Will fail and exit here with Node 0.12,
-pleaseUpgradeNode() // Message won't be displayed
-```
-
-To avoid any issues, the recommended syntax is `require('please-upgrade-node')()`.
 
 ## See also
 
