@@ -21,7 +21,7 @@ npm install please-upgrade-node
 ```
 
 ```js
-// ./bin.js
+// bin.js
 require('please-upgrade-node')()
 ```
 
