@@ -1,11 +1,11 @@
-var assert = require("assert");
-var mock = require('mock-require')
-var pleaseUpgrade = require("./");
+const assert = require("assert");
+const mock = require('mock-require')
+const pleaseUpgrade = require("./");
 
 Object.defineProperty(process, "version", { value: "v4.0.0" });
 
-var count = 0;
-var name = 'Lorem Ipsum'
+const count = 0;
+const name = 'Lorem Ipsum'
 
 process.exit = function (code) {
   count = count + 1;
