@@ -21,16 +21,15 @@ npm install please-upgrade-node
 ```
 
 ```js
-// bin.js
+#!/usr/bin/env node
 const pkg = require('./package.json')
 require('please-upgrade-node')(pkg)
-// please-upgrade-node MUST run before other requires
+// MUST run before any other requires
 ```
 
 ```js
 // package.json
-{ 
-  "name": "super-cli",
+{
   "bin": "./bin.js",
   "engines": { "node": ">=6" }
 }
