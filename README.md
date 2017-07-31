@@ -1,6 +1,6 @@
 # Please upgrade Node [![Build Status](https://travis-ci.org/typicode/please-upgrade-node.svg?branch=master)](https://travis-ci.org/typicode/please-upgrade-node) [![npm](https://img.shields.io/npm/v/please-upgrade-node.svg)](https://www.npmjs.com/package/please-upgrade-node)
 
-> :information_desk_person: show a message to your users to upgrade Node instead of a stacktrace 
+> :information_desk_person: show a message to your users to upgrade Node instead of a stacktrace
 
 It's common for new Node users to miss the `npm` engines warning when installing a CLI. This package displays a beginner-friendly message if their Node version is below the one expected.
 
@@ -27,12 +27,14 @@ require('please-upgrade-node')()
 
 ```js
 // package.json
-{ 
+{
   "name": "super-cli",
   "bin": "./bin.js",
   "engines": { "node": ">=6" }
 }
 ```
+
+Note that `package.json` will be resolved relative to _your file_.
 
 ## Caveats
 

@@ -1,13 +1,15 @@
 var assert = require("assert");
-var mock = require('mock-require')
+var path = require("path");
+var mock = require("mock-require");
 var pleaseUpgrade = require("./");
 
 Object.defineProperty(process, "version", { value: "v4.0.0" });
 
 var count = 0;
-var name = 'Lorem Ipsum'
+var name = "Lorem Ipsum";
+var defaultPkgPath = __dirname + "/package.json";
 
-process.exit = function (code) {
+process.exit = function(code) {
   count = count + 1;
 };
 
@@ -16,16 +18,16 @@ function countShouldBe(expected) {
 }
 
 // Should not call process.exit
-mock('./package.json', {
+mock(defaultPkgPath, {
   name: name,
   engines: {
     node: ">=1.2.0"
   }
-})
+});
 pleaseUpgrade();
 countShouldBe(0);
 
-mock('./package.json', {
+mock(defaultPkgPath, {
   name: name,
   engines: {
     node: ">=4.0.0"
@@ -34,7 +36,7 @@ mock('./package.json', {
 pleaseUpgrade();
 countShouldBe(0);
 
-mock('./package.json', {
+mock(defaultPkgPath, {
   name: name,
   engines: {
     node: ">=4"
@@ -45,7 +47,7 @@ countShouldBe(0);
 
 // Should call process.exit
 
-mock('./package.json', {
+mock(defaultPkgPath, {
   name: name,
   engines: {
     node: ">=4.0.1"
@@ -54,7 +56,7 @@ mock('./package.json', {
 pleaseUpgrade();
 countShouldBe(1);
 
-mock('./package.json', {
+mock(defaultPkgPath, {
   name: name,
   engines: {
     node: ">=6.0.0"
@@ -63,7 +65,7 @@ mock('./package.json', {
 pleaseUpgrade();
 countShouldBe(2);
 
-mock('./package.json', {
+mock(defaultPkgPath, {
   name: name,
   engines: {
     node: ">=8"
@@ -73,12 +75,12 @@ pleaseUpgrade();
 countShouldBe(3);
 
 // Should support pkgDir
-
-mock('../package.json', {
+var pkgPath = path.resolve(__dirname, "..") + "/package.json";
+mock(pkgPath, {
   name: name,
   engines: {
     node: ">=8"
   }
 });
-pleaseUpgrade('..');
+pleaseUpgrade("..");
 countShouldBe(4);
