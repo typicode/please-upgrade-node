@@ -24,7 +24,7 @@ npm install please-upgrade-node
 #!/usr/bin/env node
 const pkg = require('./package.json')
 require('please-upgrade-node')(pkg)
-// MUST run before any other requires
+// Must run BEFORE requiring other modules
 ```
 
 ```js
