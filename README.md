@@ -22,7 +22,9 @@ npm install please-upgrade-node
 
 ```js
 // bin.js
-require('please-upgrade-node')()
+const pkg = require('./package.json')
+require('please-upgrade-node')(pkg)
+// please-upgrade-node MUST run before other requires
 ```
 
 ```js
@@ -34,34 +36,7 @@ require('please-upgrade-node')()
 }
 ```
 
-## Caveats
-
-`please-upgrade-node` must be run before any other code. It's __highly recommended__ to require it this way in your CLI:
-
-```js
-#!/usr/bin/env node
-require('please-upgrade-node')()
-const other = require('some-other-package')
-// ...
-```
-
-Also `>=` is the only operator supported by `please-upgrade-node` (e.g. `>=4`, `>=4.0`, `>=4.0.0`).
-
-
-
-## API
-
-__`pleaseUpgradeNode([pkgDir = '.'])`__
-
-You can pass a `pkgDir` if your `package.json` is not at the same level:
-
-```js
-// ./package.json
-require('please-upgrade-node')()
-
-// ../../package.json
-require('please-upgrade-node')('../..')
-```
+`>=` is the only operator supported by `please-upgrade-node` (e.g. `>=4`, `>=4.0`, `>=4.0.0`).
 
 ## See also
 
