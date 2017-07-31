@@ -6,7 +6,6 @@
   "scripts": {
     "test": "node test",
     "prepublishOnly": "pkg-ok",
-    "precommit": "npm test",
     "fix": "prettier --write *.js"
   },
   "repository": {
