@@ -41,6 +41,7 @@ require('please-upgrade-node')(pkg)
 
 * [pkg-ok](https://github.com/typicode/pkg-ok) - :ok_hand: Prevents publishing a module with bad paths
 * [husky](https://github.com/typicode/husky) - :dog: Git hooks made easy
+* [update-notifier](https://github.com/yeoman/update-notifier) - Update notifications for your CLI app 
 
 Thanks to [zeit/serve](https://github.com/zeit/serve) for the error message inspiration.
 
