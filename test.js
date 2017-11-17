@@ -1,7 +1,7 @@
 const assert = require("assert");
 const pleaseUpgrade = require("./");
 
-Object.defineProperty(process, "version", { value: "v4.0.0" });
+Object.defineProperty(process, "version", { value: "v4.5.6" });
 
 var count = 0;
 
@@ -14,52 +14,54 @@ function countShouldBe(expected) {
 }
 
 // Should not call process.exit
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=1.2.0"
-  }
-});
-countShouldBe(0);
+function assertOK(version) {
+  pleaseUpgrade({
+    name: "Lorem Ipsum",
+    engines: {
+      node: version
+    }
+  });
+  countShouldBe(0);
+}
 
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=4.0.0"
-  }
-});
-countShouldBe(0);
+assertOK(">=1.2.0");
+assertOK(">=4.0.0");
+assertOK(">=4.0");
+assertOK(">=4");
 
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=4"
-  }
-});
-countShouldBe(0);
+assertOK(">3");
+assertOK(">4.4");
+assertOK(">4.5.5");
+
+assertOK("~4.5.5");
+assertOK("~4.5");
+assertOK("~4");
+
+assertOK("^4.5.5");
+assertOK("^4");
 
 // Should call process.exit
+function assertNotOK(version) {
+  count = 0;
+  pleaseUpgrade({
+    name: "Lorem Ipsum",
+    engines: {
+      node: version
+    }
+  });
+  countShouldBe(1);
+}
 
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=4.0.1"
-  }
-});
-countShouldBe(1);
 
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=6.0.0"
-  }
-});
-countShouldBe(2);
+assertNotOK(">=6.0.0");
+assertNotOK(">=8");
 
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=8"
-  }
-});
-countShouldBe(3);
+assertNotOK(">5");
+
+assertNotOK("~4.5.7");
+assertNotOK("~4.6");
+assertNotOK("~5");
+
+assertNotOK("^4.5.7");
+assertNotOK("^4.6");
+assertNotOK("^5");
