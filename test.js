@@ -1,7 +1,7 @@
 const assert = require("assert");
 const pleaseUpgrade = require("./");
 
-Object.defineProperty(process, "version", { value: "v4.0.0" });
+Object.defineProperty(process, "version", { value: "v4.5.6" });
 
 var count = 0;
 
@@ -26,7 +26,19 @@ function assertOK(version) {
 
 assertOK(">=1.2.0");
 assertOK(">=4.0.0");
+assertOK(">=4.0");
 assertOK(">=4");
+
+assertOK(">3");
+assertOK(">4.4");
+assertOK(">4.5.5");
+
+assertOK("~4.5.5");
+assertOK("~4.5");
+assertOK("~4");
+
+assertOK("^4.5.5");
+assertOK("^4");
 
 // Should call process.exit
 function assertNotOK(version) {
@@ -43,3 +55,13 @@ function assertNotOK(version) {
 
 assertNotOK(">=6.0.0");
 assertNotOK(">=8");
+
+assertNotOK(">5");
+
+assertNotOK("~4.5.7");
+assertNotOK("~4.6");
+assertNotOK("~5");
+
+assertNotOK("^4.5.7");
+assertNotOK("^4.6");
+assertNotOK("^5");

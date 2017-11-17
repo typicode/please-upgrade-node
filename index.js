@@ -1,11 +1,19 @@
+var semver = require('semver')
+
 module.exports = function (pkg) {
-  var requiredVersion = pkg.engines.node.replace(">=", "");
-  var currentVersion = process.version.replace("v", "");
-  if (currentVersion < requiredVersion) {
+  if (!pkg.engines || !pkg.engines.node) {
     console.error(
-      "%s requires at least version %s of Node, please upgrade",
+      "provided package.json data does not " +
+      "include a required version of Node:"
+    )
+    console.error(JSON.stringify(pkg, null, 2))
+  }
+  if (!semver.satisfies(process.version, pkg.engines.node)) {
+    console.error(
+      "%s requires a version of Node matching `%s`; you're running %s. Please upgrade!",
       pkg.name,
-      requiredVersion
+      pkg.engines.node,
+      process.version
     );
     process.exit(1);
   }
