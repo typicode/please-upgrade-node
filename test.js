@@ -14,52 +14,32 @@ function countShouldBe(expected) {
 }
 
 // Should not call process.exit
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=1.2.0"
-  }
-});
-countShouldBe(0);
+function assertOK(version) {
+  pleaseUpgrade({
+    name: "Lorem Ipsum",
+    engines: {
+      node: version
+    }
+  });
+  countShouldBe(0);
+}
 
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=4.0.0"
-  }
-});
-countShouldBe(0);
-
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=4"
-  }
-});
-countShouldBe(0);
+assertOK(">=1.2.0");
+assertOK(">=4.0.0");
+assertOK(">=4");
 
 // Should call process.exit
+function assertNotOK(version) {
+  count = 0;
+  pleaseUpgrade({
+    name: "Lorem Ipsum",
+    engines: {
+      node: version
+    }
+  });
+  countShouldBe(1);
+}
 
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=4.0.1"
-  }
-});
-countShouldBe(1);
 
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=6.0.0"
-  }
-});
-countShouldBe(2);
-
-pleaseUpgrade({
-  name: "Lorem Ipsum",
-  engines: {
-    node: ">=8"
-  }
-});
-countShouldBe(3);
+assertNotOK(">=6.0.0");
+assertNotOK(">=8");
