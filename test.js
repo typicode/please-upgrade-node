@@ -1,10 +1,11 @@
 const assert = require("assert");
 const pleaseUpgrade = require("./");
 
-Object.defineProperty(process, "version", { value: "v4.0.0" });
+Object.defineProperty(process, "version", { value: "v10.0.0" });
 
 var count = 0;
 
+// Mock process exit
 process.exit = function(code) {
   count = count + 1;
 };
@@ -13,7 +14,10 @@ function countShouldBe(expected) {
   assert.equal(count, expected);
 }
 
-// Should not call process.exit
+/**
+ * Mocked process.exit SHOULD NOT be called in these cases
+ */
+
 pleaseUpgrade({
   name: "Lorem Ipsum",
   engines: {
@@ -38,28 +42,33 @@ pleaseUpgrade({
 });
 countShouldBe(0);
 
-// Should call process.exit
+/**
+ * Mocked process.exit SHOULD be called in these cases
+ */
 
+// patch upgrade
 pleaseUpgrade({
   name: "Lorem Ipsum",
   engines: {
-    node: ">=4.0.1"
+    node: ">=10.0.1"
   }
 });
 countShouldBe(1);
 
+// major version
 pleaseUpgrade({
   name: "Lorem Ipsum",
   engines: {
-    node: ">=6.0.0"
+    node: ">=12.0.0"
   }
 });
 countShouldBe(2);
 
+// major version with different syntax
 pleaseUpgrade({
   name: "Lorem Ipsum",
   engines: {
-    node: ">=8"
+    node: ">=12"
   }
 });
 countShouldBe(3);
