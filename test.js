@@ -1,17 +1,17 @@
-const assert = require("assert");
-const pleaseUpgrade = require("./");
+var assert = require('assert')
+var pleaseUpgrade = require('./')
 
-Object.defineProperty(process, "version", { value: "v10.0.0" });
+Object.defineProperty(process, 'version', { value: 'v10.0.0' })
 
-var count = 0;
+var count = 0
 
 // Mock process exit
 process.exit = function(code) {
-  count = count + 1;
-};
+  count = count + 1
+}
 
 function countShouldBe(expected) {
-  assert.equal(count, expected);
+  assert.equal(count, expected)
 }
 
 /**
@@ -19,28 +19,28 @@ function countShouldBe(expected) {
  */
 
 pleaseUpgrade({
-  name: "Lorem Ipsum",
+  name: 'Lorem Ipsum',
   engines: {
-    node: ">=1.2.0"
+    node: '>=1.2.0'
   }
-});
-countShouldBe(0);
+})
+countShouldBe(0)
 
 pleaseUpgrade({
-  name: "Lorem Ipsum",
+  name: 'Lorem Ipsum',
   engines: {
-    node: ">=4.0.0"
+    node: '>=4.0.0'
   }
-});
-countShouldBe(0);
+})
+countShouldBe(0)
 
 pleaseUpgrade({
-  name: "Lorem Ipsum",
+  name: 'Lorem Ipsum',
   engines: {
-    node: ">=4"
+    node: '>=4'
   }
-});
-countShouldBe(0);
+})
+countShouldBe(0)
 
 /**
  * Mocked process.exit SHOULD be called in these cases
@@ -48,27 +48,27 @@ countShouldBe(0);
 
 // patch upgrade
 pleaseUpgrade({
-  name: "Lorem Ipsum",
+  name: 'Lorem Ipsum',
   engines: {
-    node: ">=10.0.1"
+    node: '>=10.0.1'
   }
-});
-countShouldBe(1);
+})
+countShouldBe(1)
 
 // major version
 pleaseUpgrade({
-  name: "Lorem Ipsum",
+  name: 'Lorem Ipsum',
   engines: {
-    node: ">=12.0.0"
+    node: '>=12.0.0'
   }
-});
-countShouldBe(2);
+})
+countShouldBe(2)
 
 // major version with different syntax
 pleaseUpgrade({
-  name: "Lorem Ipsum",
+  name: 'Lorem Ipsum',
   engines: {
-    node: ">=12"
+    node: '>=12'
   }
-});
-countShouldBe(3);
+})
+countShouldBe(3)
