@@ -4,9 +4,10 @@
   "description": "Displays a beginner-friendly message telling your user to upgrade their version of Node",
   "main": "index.js",
   "scripts": {
-    "test": "node test && eslint .",
-    "prepublishOnly": "npm test && pkg-ok",
-    "fix": "eslint . --fix"
+    "test": "node test",
+    "lint": "eslint .",
+    "fix": "npm run lint -- --fix",
+    "prepublishOnly": "npm test && npm run lint && pkg-ok"
   },
   "repository": {
     "type": "git",
