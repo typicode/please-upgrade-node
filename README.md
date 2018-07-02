@@ -50,7 +50,7 @@ pleaseUpgradeNode(pkg, {
 })
 ```
 
-__Note__: for the message function, avoid using ES6 features like arrow functions or string interpolation to keep it compatible with older versions of Node
+__Note__: for the message function, avoid using ES6 features like arrow function or string interpolation to keep it compatible with older versions of Node
 
 ## See also
 
