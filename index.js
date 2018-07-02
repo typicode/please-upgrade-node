@@ -1,14 +1,20 @@
 var semverCompare = require('semver-compare')
 
-module.exports = function(pkg) {
+module.exports = function pleaseUpgradeNode(pkg, opts) {
+  var opts = opts || {}
   var requiredVersion = pkg.engines.node.replace('>=', '')
   var currentVersion = process.version.replace('v', '')
   if (semverCompare(currentVersion, requiredVersion) === -1) {
-    console.error(
-      '%s requires at least version %s of Node, please upgrade',
-      pkg.name,
-      requiredVersion
-    )
-    process.exit(1)
+    if (opts.message) {
+      console.error(opts.message(requiredVersion))
+    } else {
+      console.error(
+        pkg.name +
+          ' requires at least version ' +
+          requiredVersion +
+          ' of Node, please upgrade'
+      )
+    }
+    process.exit(opts.exitCode || 1)
   }
 }

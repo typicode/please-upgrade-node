@@ -4,14 +4,12 @@
 
 It's common for new Node users to miss the `npm` engines warning when installing a CLI. This package displays a beginner-friendly message if their Node version is below the one expected.
 
-Example with [hotel](https://github.com/typicode/hotel) CLI:
-
 ```sh
 $ node -v
 0.12
 
-$ hotel
-hotel requires at least version 4 of Node, please upgrade
+$ modern-cli
+modern-cli requires at least version 6 of Node, please upgrade
 ```
 
 ## Install
@@ -31,11 +29,28 @@ require('please-upgrade-node')(pkg)
 // package.json
 {
   "bin": "./bin.js",
-  "engines": { "node": ">=6" }
+  "engines": {
+    "node": ">=6"
+  }
 }
 ```
 
-`>=` is the only operator supported by `please-upgrade-node` (e.g. `>=4`, `>=4.0`, `>=4.0.0`).
+__Important__: `>=` is the only operator supported by `please-upgrade-node` (e.g. `>=6`, `>=6.0`, `>=6.0.0`).
+
+## Options
+
+You can also pass custom `exitCode` (default: `1`) or `message` function
+
+```js
+pleaseUpgradeNode(pkg, {
+  exitCode: 0,
+  message: function(requiredVersion) {
+    return 'Oops, this program requires Node ' + requiredVersion
+  }
+})
+```
+
+__Important__: to keep `message` function compatible with older versions of Node, avoid using ES6 features like `=>` or string interpolation 
 
 ## See also
 
