@@ -30,9 +30,9 @@
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-plugin-prettier": "^2.6.0",
-    "mock-require": "^2.0.2",
     "pkg-ok": "^1.1.0",
-    "prettier": "1.12.1"
+    "prettier": "1.12.1",
+    "tape": "^4.9.1"
   },
   "dependencies": {
     "semver-compare": "^1.0.0"
