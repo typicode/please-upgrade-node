@@ -44,12 +44,13 @@ You can also pass custom `exitCode` (default: `1`) or `message` function
 ```js
 pleaseUpgradeNode(pkg, {
   exitCode: 0,
-  // Avoid using => for function or string interpolation to keep it compatible with old version of Node
   message: function(requiredVersion) {
     return 'Oops, this program requires Node ' + requiredVersion
   }
 })
 ```
+
+__Note__: for the message function, avoid using ES6 features like arrow functions or string interpolation to keep it compatible with older versions of Node
 
 ## See also
 
