@@ -37,15 +37,27 @@ require('please-upgrade-node')(pkg)
 
 __Important__: `>=` is the only operator supported by `please-upgrade-node` (e.g. `>=6`, `>=6.0`, `>=6.0.0`).
 
-## Options
+## API
 
-You can also pass custom `exitCode` (default: `1`) or `message` function
+### pleaseUpgradeNode(pkg[, options])
+
+#### options
+
+Type: `Object`
+
+##### exitCode
+
+Type: `integer`
+Default: `1`
+
+##### message
+
+Type: `function`
 
 ```js
 pleaseUpgradeNode(pkg, {
-  exitCode: 0,
   message: function(requiredVersion) {
-    return 'Oops, this program requires Node ' + requiredVersion
+    return 'Oops this program require Node ' +  requiredVersion
   }
 })
 ```
