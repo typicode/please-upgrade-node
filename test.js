@@ -107,7 +107,27 @@ test('>=12.0.0 should exit', function(t) {
   t.end()
 })
 
-test('should exit with custom code', function(t) {
+test('should exit with custom code 0', function(t) {
+  pleaseUpgrade(
+    {
+      name: 'Lorem Ipsum',
+      engines: {
+        node: '>=12.0.0'
+      }
+    },
+    {
+      exitCode: 0
+    }
+  )
+  t.equal(exitCode, 0)
+  t.equal(
+    errorMessage,
+    'Lorem Ipsum requires at least version 12.0.0 of Node, please upgrade'
+  )
+  t.end()
+})
+
+test('should exit with custom code 2', function(t) {
   pleaseUpgrade(
     {
       name: 'Lorem Ipsum',

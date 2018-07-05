@@ -15,6 +15,11 @@ module.exports = function pleaseUpgradeNode(pkg, opts) {
           ' of Node, please upgrade'
       )
     }
-    process.exit(opts.exitCode || 1)
+
+    if (opts.hasOwnProperty('exitCode')) {
+      process.exit(opts.exitCode)
+    } else {
+      process.exit(1)
+    }
   }
 }
