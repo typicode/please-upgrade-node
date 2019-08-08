@@ -12,9 +12,9 @@ $ modern-cli
 modern-cli requires at least version 6 of Node, please upgrade
 ```
 
-<a href="https://www.patreon.com/typicode">
-  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
-</a>
+## Support
+
+If you like this project, you can support me on [GitHub Sponsors](https://github.com/users/typicode/sponsorship)
 
 ## Usage
 
