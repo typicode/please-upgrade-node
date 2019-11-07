@@ -28,12 +28,12 @@
   },
   "homepage": "https://github.com/typicode/please-upgrade-node#readme",
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-plugin-prettier": "^2.6.0",
-    "husky": "^1.0.0-rc.12",
-    "pkg-ok": "^1.1.0",
-    "prettier": "1.12.1",
-    "tape": "^4.9.1"
+    "eslint": "^6.6.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.0.9",
+    "pkg-ok": "^2.3.1",
+    "prettier": "1.18.2",
+    "tape": "^4.11.0"
   },
   "dependencies": {
     "semver-compare": "^1.0.0"
