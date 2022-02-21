@@ -6,15 +6,15 @@ It's common for new Node users to miss or not understand engines warning when in
 
 ```sh
 $ node -v
-0.12
+12
 
 $ modern-cli
-modern-cli requires at least version 6 of Node, please upgrade
+modern-cli requires at least version 16 of Node, please upgrade
 ```
 
-## Support
+## Status
 
-If you like this project, you can support me on [GitHub Sponsors](https://github.com/users/typicode/sponsorship)
+This project is considered feature complete and stable. Only maintenance updates will be published. That said since the goal of the project is to check previous versions of Node, code is unlikely to be modified as it needs to work on very old versions.
 
 ## Usage
 
@@ -61,12 +61,5 @@ __Important__: to keep `message` function compatible with older versions of Node
 
 ## See also
 
-* [pkg-ok](https://github.com/typicode/pkg-ok) - :ok_hand: Prevents publishing a module with bad paths
-* [husky](https://github.com/typicode/husky) - :dog: Git hooks made easy
-* [update-notifier](https://github.com/yeoman/update-notifier) - Update notifications for your CLI app 
-
-Thanks to [zeit/serve](https://github.com/zeit/serve) for the error message inspiration.
-
-## License
-
-MIT - [Typicode :cactus:](https://github.com/typicode) - [Patreon](https://patreon.com/typicode)
+* [xv](https://github.com/typicode/xv) - ✅ Simple test runner
+* [husky](https://github.com/typicode/husky) - 🐕 Git hooks made easy
