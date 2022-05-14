@@ -42,5 +42,6 @@
     "hooks": {
       "pre-commit": "npm test && npm run lint"
     }
-  }
+  },
+  "bin": "node -e \"require('please-upgrade-node')(require('./package.json'))\""
 }
