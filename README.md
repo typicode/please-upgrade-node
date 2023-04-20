@@ -1,4 +1,4 @@
-# Please upgrade Node [![](http://img.shields.io/npm/dm/please-upgrade-node.svg?style=flat)](https://www.npmjs.org/package/please-upgrade-node) [![Build Status](https://travis-ci.org/typicode/please-upgrade-node.svg?branch=master)](https://travis-ci.org/typicode/please-upgrade-node) [![npm](https://img.shields.io/npm/v/please-upgrade-node.svg)](https://www.npmjs.com/package/please-upgrade-node)
+# Please upgrade Node [![](http://img.shields.io/npm/dm/please-upgrade-node.svg?style=flat)](https://www.npmjs.org/package/please-upgrade-node) [![npm](https://img.shields.io/npm/v/please-upgrade-node.svg)](https://www.npmjs.com/package/please-upgrade-node)
 
 > :information_desk_person: show a message to your users to upgrade Node instead of a stacktrace 
 
@@ -14,7 +14,7 @@ modern-cli requires at least version 16 of Node, please upgrade
 
 ## Status
 
-This project is considered feature complete and stable. Only maintenance updates will be published. That said since the goal of the project is to check previous versions of Node, code is unlikely to be modified as it needs to work on very old versions.
+**This project is considered feature complete and stable**. Only maintenance updates will be published. That said since the goal of the project is to check previous versions of Node, code is unlikely to be modified as it needs to work on very old versions.
 
 ## Usage
 
