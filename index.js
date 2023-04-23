@@ -5,21 +5,25 @@ module.exports = function pleaseUpgradeNode(pkg, opts) {
   var requiredVersion = pkg.engines.node.replace('>=', '')
   var currentVersion = process.version.replace('v', '')
   if (semverCompare(currentVersion, requiredVersion) === -1) {
+    let errMsg
     if (opts.message) {
-      console.error(opts.message(requiredVersion))
+      errMsg = opts.message(requiredVersion)
     } else {
-      console.error(
-        pkg.name +
+      errMsg = pkg.name +
           ' requires at least version ' +
           requiredVersion +
           ' of Node, please upgrade'
-      )
+      
     }
 
+    console.error(errMsg)
+
     if (opts.hasOwnProperty('exitCode')) {
-      process.exit(opts.exitCode)
+      process.exitCode = opts.exitCode
     } else {
-      process.exit(1)
+      process.exitCode = 1
     }
+    
+    throw new Error(errMsg)
   }
 }

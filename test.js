@@ -4,12 +4,6 @@ var pleaseUpgrade = require('./')
 // Change process.version value
 Object.defineProperty(process, 'version', { value: 'v10.0.0' })
 
-// Mock process.exit and console.error
-var exitCode = null
-process.exit = function(code) {
-  exitCode = code
-}
-
 var errorMessage = null
 consoleError = console.error
 console.error = function(msg) {
@@ -19,57 +13,60 @@ console.error = function(msg) {
 
 function test(name, cb) {
   // Before each
-  exitCode = null
+  process.exitCode = null
   errorMessage = null
   // Test
   tape(name, cb)
 }
 
 // Actual tests
-test('>=1.2.0 should not exit', function(t) {
+test('>=1.2.0 should not throw', function(t) {
   pleaseUpgrade({
     name: 'Lorem Ipsum',
     engines: {
       node: '>=1.2.0'
     }
   })
-  t.equal(exitCode, null)
+  t.equal(process.exitCode, null)
   t.equal(errorMessage, null)
   t.end()
 })
 
-test('>=4 should not exit', function(t) {
+test('>=4 should not throw', function(t) {
   pleaseUpgrade({
     name: 'Lorem Ipsum',
     engines: {
       node: '>=4'
     }
   })
-  t.equal(exitCode, null)
+  t.equal(process.exitCode, null)
   t.equal(errorMessage, null)
   t.end()
 })
 
-test('>=4.0.0 should not exit', function(t) {
+test('>=4.0.0 should not throw', function(t) {
   pleaseUpgrade({
     name: 'Lorem Ipsum',
     engines: {
       node: '>=4.0.0'
     }
   })
-  t.equal(exitCode, null)
+  t.equal(process.exitCode, null)
   t.equal(errorMessage, null)
   t.end()
 })
 
-test('>=10.0.1 (patch) should exit', function(t) {
-  pleaseUpgrade({
-    name: 'Lorem Ipsum',
-    engines: {
-      node: '>=10.0.1'
-    }
+test('>=10.0.1 (patch) should throw', function(t) {
+  t.throws(function() {
+    pleaseUpgrade({
+      name: 'Lorem Ipsum',
+      engines: {
+        node: '>=10.0.1'
+      }
+    })
   })
-  t.equal(exitCode, 1)
+
+  t.equal(process.exitCode, 1)
   t.equal(
     errorMessage,
     'Lorem Ipsum requires at least version 10.0.1 of Node, please upgrade'
@@ -77,14 +74,17 @@ test('>=10.0.1 (patch) should exit', function(t) {
   t.end()
 })
 
-test('>=12 should exit', function(t) {
-  pleaseUpgrade({
-    name: 'Lorem Ipsum',
-    engines: {
-      node: '>=12'
-    }
+test('>=12 should throw', function(t) {
+  t.throws(function() {
+    pleaseUpgrade({
+      name: 'Lorem Ipsum',
+      engines: {
+        node: '>=12'
+      }
+    })
   })
-  t.equal(exitCode, 1)
+
+  t.equal(process.exitCode, 1)
   t.equal(
     errorMessage,
     'Lorem Ipsum requires at least version 12 of Node, please upgrade'
@@ -92,14 +92,17 @@ test('>=12 should exit', function(t) {
   t.end()
 })
 
-test('>=12.0.0 should exit', function(t) {
-  pleaseUpgrade({
-    name: 'Lorem Ipsum',
-    engines: {
-      node: '>=12.0.0'
-    }
+test('>=12.0.0 should throw', function(t) {
+  t.throws(function() {
+    pleaseUpgrade({
+      name: 'Lorem Ipsum',
+      engines: {
+        node: '>=12.0.0'
+      }
+    })
   })
-  t.equal(exitCode, 1)
+
+  t.equal(process.exitCode, 1)
   t.equal(
     errorMessage,
     'Lorem Ipsum requires at least version 12.0.0 of Node, please upgrade'
@@ -108,18 +111,21 @@ test('>=12.0.0 should exit', function(t) {
 })
 
 test('should exit with custom code 0', function(t) {
-  pleaseUpgrade(
-    {
-      name: 'Lorem Ipsum',
-      engines: {
-        node: '>=12.0.0'
+  t.throws(function() {
+    pleaseUpgrade(
+      {
+        name: 'Lorem Ipsum',
+        engines: {
+          node: '>=12.0.0'
+        }
+      },
+      {
+        exitCode: 0
       }
-    },
-    {
-      exitCode: 0
-    }
-  )
-  t.equal(exitCode, 0)
+    )
+  })
+
+  t.equal(process.exitCode, 0)
   t.equal(
     errorMessage,
     'Lorem Ipsum requires at least version 12.0.0 of Node, please upgrade'
@@ -128,18 +134,21 @@ test('should exit with custom code 0', function(t) {
 })
 
 test('should exit with custom code 2', function(t) {
-  pleaseUpgrade(
-    {
-      name: 'Lorem Ipsum',
-      engines: {
-        node: '>=12.0.0'
+  t.throws(function() {
+    pleaseUpgrade(
+      {
+        name: 'Lorem Ipsum',
+        engines: {
+          node: '>=12.0.0'
+        }
+      },
+      {
+        exitCode: 2
       }
-    },
-    {
-      exitCode: 2
-    }
-  )
-  t.equal(exitCode, 2)
+    )
+  })
+
+  t.equal(process.exitCode, 2)
   t.equal(
     errorMessage,
     'Lorem Ipsum requires at least version 12.0.0 of Node, please upgrade'
@@ -148,20 +157,23 @@ test('should exit with custom code 2', function(t) {
 })
 
 test('should display custom message', function(t) {
-  pleaseUpgrade(
-    {
-      name: 'Lorem Ipsum',
-      engines: {
-        node: '>=12.0.0'
+  t.throws(function() {
+    pleaseUpgrade(
+      {
+        name: 'Lorem Ipsum',
+        engines: {
+          node: '>=12.0.0'
+        }
+      },
+      {
+        message: function(requiredVersion) {
+          return 'Required version is ' + requiredVersion
+        }
       }
-    },
-    {
-      message: function(requiredVersion) {
-        return 'Required version is ' + requiredVersion
-      }
-    }
-  )
-  t.equal(exitCode, 1)
+    )
+  })
+
+  t.equal(process.exitCode, 1)
   t.equal(errorMessage, 'Required version is 12.0.0')
   t.end()
 })
