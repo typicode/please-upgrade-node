@@ -87,7 +87,22 @@ test('>=12 should exit', function(t) {
   t.equal(exitCode, 1)
   t.equal(
     errorMessage,
-    'Lorem Ipsum requires at least version 12 of Node, please upgrade'
+    'Lorem Ipsum requires at least version 12.0.0 of Node, please upgrade'
+  )
+  t.end()
+})
+
+test('<1 should exit', function(t) {
+  pleaseUpgrade({
+    name: 'Lorem Ipsum',
+    engines: {
+      node: '<1'
+    }
+  })
+  t.equal(exitCode, 1)
+  t.equal(
+    errorMessage,
+    'Lorem Ipsum requires version range "<1" of Node, while currently on v10.0.0'
   )
   t.end()
 })

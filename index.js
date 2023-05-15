@@ -1,19 +1,29 @@
-var semverCompare = require('semver-compare')
+var semver = require('semver')
 
 module.exports = function pleaseUpgradeNode(pkg, opts) {
   var opts = opts || {}
-  var requiredVersion = pkg.engines.node.replace('>=', '')
-  var currentVersion = process.version.replace('v', '')
-  if (semverCompare(currentVersion, requiredVersion) === -1) {
+
+  var minVersion = semver.minVersion(pkg.engines.node)
+  if (!semver.satisfies(process.version, pkg.engines.node)) {
     if (opts.message) {
-      console.error(opts.message(requiredVersion))
+      console.error(opts.message(minVersion))
     } else {
-      console.error(
-        pkg.name +
-          ' requires at least version ' +
-          requiredVersion +
-          ' of Node, please upgrade'
-      )
+      if (semver.lt(process.version, minVersion)) {
+        console.error(
+          pkg.name +
+            ' requires at least version ' +
+            minVersion +
+            ' of Node, please upgrade'
+        )
+      } else {
+        console.error(
+          pkg.name +
+            ' requires version range "' +
+            pkg.engines.node +
+            '" of Node, while currently on ' +
+          process.version
+        )
+      }
     }
 
     if (opts.hasOwnProperty('exitCode')) {
