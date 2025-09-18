@@ -8,4 +8,4 @@ declare function pleaseUpgradeNode(
   opts?: Partial<Options>
 ): void;
 
-export = pleaseUpgradeNode;
+export default pleaseUpgradeNode;

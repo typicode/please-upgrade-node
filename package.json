@@ -18,6 +18,7 @@
     "verify",
     "upgrade"
   ],
+  "type": "module",
   "author": "typicode",
   "license": "MIT",
   "bugs": {
@@ -26,8 +27,5 @@
   "homepage": "https://github.com/typicode/please-upgrade-node#readme",
   "devDependencies": {
     "tape": "^5.6.3"
-  },
-  "dependencies": {
-    "semver-compare": "^1.0.0"
   }
 }
