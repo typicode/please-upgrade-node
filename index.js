@@ -1,25 +1,25 @@
-var semverCompare = require('semver-compare')
+import process from 'node:process'
 
-module.exports = function pleaseUpgradeNode(pkg, opts) {
-  var opts = opts || {}
-  var requiredVersion = pkg.engines.node.replace('>=', '')
-  var currentVersion = process.version.replace('v', '')
-  if (semverCompare(currentVersion, requiredVersion) === -1) {
-    if (opts.message) {
-      console.error(opts.message(requiredVersion))
-    } else {
-      console.error(
-        pkg.name +
-          ' requires at least version ' +
-          requiredVersion +
-          ' of Node, please upgrade'
-      )
-    }
-
-    if (opts.hasOwnProperty('exitCode')) {
-      process.exit(opts.exitCode)
-    } else {
-      process.exit(1)
-    }
+export default function pleaseUpgradeNode(pkg = {}, opts = {}) {
+  const requiredVersion = pkg.engines.node.replace('>=', '')
+  const currentVersion = process.version.replace('v', '')
+  if (compare(currentVersion, requiredVersion) === -1) {
+    console.error(opts.message && typeof opts.message === 'function' ? opts.message(requiredVersion) : `${pkg.name} requires at least version ${requiredVersion} of Node, please upgrade`)
+    process.exit(opts.hasOwnProperty('exitCode') ? opts.exitCode : 1)
   }
+}
+
+// from semver-compare
+function compare(a, b) {
+	const pa = a.split('.');
+  const pb = b.split('.');
+  for (let i = 0; i < 3; i++) {
+    const na = Number(pa[i]);
+    const nb = Number(pb[i]);
+    if (na > nb) return 1;
+    if (nb > na) return -1;
+    if (!isNaN(na) && isNaN(nb)) return 1;
+    if (isNaN(na) && !isNaN(nb)) return -1;
+  }
+  return 0;
 }

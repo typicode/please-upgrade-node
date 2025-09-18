@@ -1,18 +1,19 @@
-var tape = require('tape')
-var pleaseUpgrade = require('./')
+import process from 'node:process'
+import tape from 'tape'
+import pleaseUpgrade from './index.js'
 
 // Change process.version value
 Object.defineProperty(process, 'version', { value: 'v10.0.0' })
 
 // Mock process.exit and console.error
-var exitCode = null
-process.exit = function(code) {
+let exitCode = null
+process.exit = (code) => {
   exitCode = code
 }
 
-var errorMessage = null
-consoleError = console.error
-console.error = function(msg) {
+let errorMessage = null
+const consoleError = console.error
+console.error = (msg) => {
   errorMessage = msg
   consoleError(msg)
 }
@@ -26,7 +27,7 @@ function test(name, cb) {
 }
 
 // Actual tests
-test('>=1.2.0 should not exit', function(t) {
+test('>=1.2.0 should not exit', (t) => {
   pleaseUpgrade({
     name: 'Lorem Ipsum',
     engines: {
@@ -38,7 +39,7 @@ test('>=1.2.0 should not exit', function(t) {
   t.end()
 })
 
-test('>=4 should not exit', function(t) {
+test('>=4 should not exit', (t) => {
   pleaseUpgrade({
     name: 'Lorem Ipsum',
     engines: {
@@ -50,7 +51,7 @@ test('>=4 should not exit', function(t) {
   t.end()
 })
 
-test('>=4.0.0 should not exit', function(t) {
+test('>=4.0.0 should not exit', (t) => {
   pleaseUpgrade({
     name: 'Lorem Ipsum',
     engines: {
@@ -62,7 +63,7 @@ test('>=4.0.0 should not exit', function(t) {
   t.end()
 })
 
-test('>=10.0.1 (patch) should exit', function(t) {
+test('>=10.0.1 (patch) should exit', (t) => {
   pleaseUpgrade({
     name: 'Lorem Ipsum',
     engines: {
@@ -77,7 +78,7 @@ test('>=10.0.1 (patch) should exit', function(t) {
   t.end()
 })
 
-test('>=12 should exit', function(t) {
+test('>=12 should exit', (t) => {
   pleaseUpgrade({
     name: 'Lorem Ipsum',
     engines: {
@@ -92,7 +93,7 @@ test('>=12 should exit', function(t) {
   t.end()
 })
 
-test('>=12.0.0 should exit', function(t) {
+test('>=12.0.0 should exit', (t) => {
   pleaseUpgrade({
     name: 'Lorem Ipsum',
     engines: {
@@ -107,7 +108,7 @@ test('>=12.0.0 should exit', function(t) {
   t.end()
 })
 
-test('should exit with custom code 0', function(t) {
+test('should exit with custom code 0', (t) => {
   pleaseUpgrade(
     {
       name: 'Lorem Ipsum',
@@ -127,7 +128,7 @@ test('should exit with custom code 0', function(t) {
   t.end()
 })
 
-test('should exit with custom code 2', function(t) {
+test('should exit with custom code 2', (t) => {
   pleaseUpgrade(
     {
       name: 'Lorem Ipsum',
@@ -147,7 +148,7 @@ test('should exit with custom code 2', function(t) {
   t.end()
 })
 
-test('should display custom message', function(t) {
+test('should display custom message', (t) => {
   pleaseUpgrade(
     {
       name: 'Lorem Ipsum',
@@ -156,7 +157,7 @@ test('should display custom message', function(t) {
       }
     },
     {
-      message: function(requiredVersion) {
+      message: (requiredVersion) => {
         return 'Required version is ' + requiredVersion
       }
     }

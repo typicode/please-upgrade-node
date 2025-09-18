@@ -26,8 +26,9 @@ Add `please-upgrade-node` at the top of your CLI
 
 ```js
 #!/usr/bin/env node
-const pkg = require('./package.json')
-require('please-upgrade-node')(pkg) // <- Must run BEFORE requiring any other modules
+import pkg from './package.json' with { type: 'json' }
+import pleaseUpgrade from 'please-upgrade-node'
+pleaseUpgrade(pkg) // <- Must run BEFORE requiring any other modules
 
 // ...
 ```
